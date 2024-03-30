@@ -9,9 +9,9 @@ We could think of using for feed_repository an elastic storage like Redis (easy 
     I did not create it but in EDR we are using mockery (https://vektra.github.io/mockery/latest/) that auto-generate mocks based on interface. Therefore it's important to create interfaces. 
 
 - code organization: Domain Driven Design (DDD)\
-    -> each handler is using one or more several repositories and contains the business logic (business layer)
-    -> each repository is like a table in a DB and exposes basic data manipulation (data access layer)
-    -> each handler see only interfaces of repositories (decoupling between business and data access layer)
+    -> each handler is using one or more several repositories and contains the business logic (business layer)\
+    -> each repository is like a table in a DB and exposes basic data manipulation (data access layer)\
+    -> each handler see only interfaces of repositories (decoupling between business and data access layer)\
     -> you can read about DDD here https://sarathsp06.medium.com/domain-driven-design-with-go-be3066ae213c
 
 

@@ -8,7 +8,9 @@ import (
 )
 
 type Feed interface {
+	// GetUserFeed gets a list of feeds of users followed by this user
 	GetUserFeed(userName string) ([]models.Tweet, error)
+	// PostTweet stores a feed for this user
 	PostTweet(userName string, tweetContent string) error
 }
 
@@ -19,20 +21,33 @@ type FeedHandler struct {
 	userfeeds infra.FeedUserRepository
 }
 
-func (f *FeedHandler) PostTweet(userName string, tweetContent string) error {
+func NewFeedHandler(
+	users infra.UserRepository,
+	followers infra.FollowerRepository,
+	feeds infra.FeedRepository,
+	feedsuser infra.FeedUserRepository) *FeedHandler {
+	return &FeedHandler{
+		users:     users,
+		followers: followers,
+		feeds:     feeds,
+		userfeeds: feedsuser,
+	}
+}
+
+func (f *FeedHandler) PostTweet(userName string, tweetContent string) (*models.Tweet, error) {
 	user, err := f.users.GetUser(userName)
 	if err != nil {
-		return err
+		return &models.Tweet{}, err
 	}
 	tweet, err := f.feeds.SetFeed(tweetContent)
 	if err != nil {
-		return err
+		return &models.Tweet{}, err
 	}
 	err = f.userfeeds.SetUserFeed(user.Name, tweet.ID)
 	if err != nil {
-		return err
+		return &models.Tweet{}, err
 	}
-	return nil
+	return tweet, nil
 }
 
 // GetUserFeed returns the list of tweets from other users that this user follows

@@ -3,17 +3,15 @@ package models
 import "github.com/google/uuid"
 
 type User struct {
-	ID       uuid.UUID
-	Name     string
-	TweetIds []uuid.UUID
+	ID   uuid.UUID
+	Name string
 }
 
 func NewUser(name string) User {
 	newUuid, _ := uuid.NewUUID()
 	return User{
-		ID:       newUuid,
-		Name:     name,
-		TweetIds: make([]uuid.UUID, 0),
+		ID:   newUuid,
+		Name: name,
 	}
 }
 
@@ -21,8 +19,7 @@ func NewUser(name string) User {
 func NewUserFromUser(name string, user User) User {
 	newUuid, _ := uuid.NewUUID()
 	return User{
-		ID:       newUuid,
-		Name:     name,
-		TweetIds: user.TweetIds,
+		ID:   newUuid,
+		Name: name,
 	}
 }

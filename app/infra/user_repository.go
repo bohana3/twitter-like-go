@@ -12,6 +12,14 @@ type UserRepository interface {
 	GetUser(name string) (*models.User, error)
 	UpdateUser(oldName string, newName string) error
 	DeleteUser(name string) error
+	GetAllUsers() ([]*models.User, error)
+}
+
+func NewUserRepository() *userRepositoryImpl {
+	return &userRepositoryImpl{
+		users: map[string]*models.User{},
+		lock:  &sync.RWMutex{},
+	}
 }
 
 type userRepositoryImpl struct {
@@ -68,4 +76,16 @@ func (u *userRepositoryImpl) DeleteUser(name string) error {
 	}
 	delete(u.users, name)
 	return nil
+}
+
+func (u *userRepositoryImpl) GetAllUsers() ([]*models.User, error) {
+	u.lock.Lock()
+	defer u.lock.Unlock()
+
+	users := make([]*models.User, 0, len(u.users))
+	for _, user := range u.users {
+		users = append(users, user)
+	}
+
+	return users, nil
 }

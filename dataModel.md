@@ -3,12 +3,16 @@
 ## User
 * ID uuid.UUID
 * Name string
-* TweetIds []uuid.UUID
 
-## Feed
+## Tweet
 * ID uuid.UUID
 * Content string
+* CreationTime uint64
 
-## Follower
-* UserId uuid.UUID
-* FollowerUserIds []uuid.UUID
+## FeedUser
+* Name string
+* Feeds Map<string,Map<Map<uuid.UUID, interface{}>>
+
+## Followed
+* Name 
+* Followers Map<Map<string>>

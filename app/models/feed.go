@@ -23,8 +23,3 @@ func NewTweet(content string) (Tweet, error) {
 		Content: &content,
 	}, nil
 }
-
-type FeedRepository interface {
-	GetUserFeed(userName string) ([]Tweet, error)
-	GetMutualFollowers(userName1 string, userName2 string) ([]*User, error)
-}

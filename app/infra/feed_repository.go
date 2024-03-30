@@ -16,9 +16,15 @@ type FeedRepository interface {
 
 type feedRepositoryImp struct {
 	feeds map[uuid.UUID]*models.Tweet
-	users UserRepository
 
 	lock *sync.RWMutex
+}
+
+func NewFeedRepository() *feedRepositoryImp {
+	return &feedRepositoryImp{
+		feeds: make(map[uuid.UUID]*models.Tweet, 0),
+		lock:  &sync.RWMutex{},
+	}
 }
 
 func (f *feedRepositoryImp) GetFeed(feedID uuid.UUID) (*models.Tweet, error) {

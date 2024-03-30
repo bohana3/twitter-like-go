@@ -18,6 +18,13 @@ type feedUserRepositoryImp struct {
 	lock *sync.RWMutex
 }
 
+func NewFeedUserRepository() *feedUserRepositoryImp {
+	return &feedUserRepositoryImp{
+		feedsPerUser: make(map[string]map[uuid.UUID]interface{}),
+		lock:         &sync.RWMutex{},
+	}
+}
+
 func (f *feedUserRepositoryImp) GetUserFeeds(user string) ([]uuid.UUID, error) {
 	f.lock.Lock()
 	defer f.lock.Unlock()
@@ -27,7 +34,7 @@ func (f *feedUserRepositoryImp) GetUserFeeds(user string) ([]uuid.UUID, error) {
 		return []uuid.UUID{}, fmt.Errorf("user %s does not have any feed", user)
 	}
 	var feedIDsValues []uuid.UUID
-	for k, _ := range feedsIDs {
+	for k := range feedsIDs {
 		feedIDsValues = append(feedIDsValues, k)
 	}
 	return feedIDsValues, nil

@@ -32,5 +32,5 @@ All relational data is stored in 3 maps - cf. [DataModel](dataModel.md)
 ## FollowedUser
 `Map<string,Map<string,nil>>`
 
-"FollowedUser" stores a list of "followed user".
+"FollowedUser" stores a set of "followed user".
 For each "followed user" we store a set of "followers" (we used map for the same reasons)

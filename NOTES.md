@@ -5,7 +5,7 @@
 in this case the tweeter content is the most heavy data therefore need to separate it from other data\
 We could think of using for feed_repository an elastic storage like Redis (easy scalable) and for all other repo we can use an SQL database
 - each class depends on the abstraction (dependency inversion principle)\
-    -> you encapsulate data structures (cf. maps below) in the data access layer (infra directory)
+    -> you encapsulate data structures (cf. maps below) in the data access layer (infra directory)\
     -> it allows easily to mock class and data if needed.\
     I did not create it but in EDR we are using mockery (https://vektra.github.io/mockery/latest/) that auto-generate mocks based on interface. Therefore it's important to create interfaces. 
 
